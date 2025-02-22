@@ -158,7 +158,7 @@ export class BookController {
       }*/
 
       // Consultar Open Library y combinar datos
-      const openLibraryData = await searchOpenLibrary(isbn);
+      const openLibraryData = await searchOpenLibrary(isbn); 
       if (openLibraryData) {
         bookData = bookData ? {
           ...bookData,
