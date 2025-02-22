@@ -2,13 +2,15 @@
   "name": "libreria",
   "private": true,
   "workspaces": [
-    "packages/*"
+    "libreria-app/packages/*"
   ],
   "scripts": {
     "web": "set PORT=3001 && npm run start --workspace=@libreria/web",
     "mobile": "npm run start --workspace=@libreria/mobile",
     "build:core": "npm run build --workspace=@libreria/core",
-    "build": "npm run build:core && npm run build --workspace=@libreria/web"
+    "build": "npm run build:core && npm run build --workspace=@libreria/web",
+    "backend:dev": "npm run dev --workspace=@libreria/backend",
+    "backend": "npm run start --workspace=@libreria/backend"
   },
   "devDependencies": {
     "typescript": "^4.9.5"

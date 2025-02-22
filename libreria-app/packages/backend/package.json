@@ -1,5 +1,5 @@
 {
-  "name": "libreria-backend",
+  "name": "@libreria/backend",
   "version": "0.1.0",
   "description": "Backend para aplicación de gestión de librería",
   "main": "dist/index.js",
