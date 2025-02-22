@@ -1,0 +1,20 @@
+{
+  "name": "libreria",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "web": "set PORT=3001 && npm run start --workspace=@libreria/web",
+    "mobile": "npm run start --workspace=@libreria/mobile",
+    "build:core": "npm run build --workspace=@libreria/core",
+    "build": "npm run build:core && npm run build --workspace=@libreria/web"
+  },
+  "devDependencies": {
+    "typescript": "^4.9.5"
+  },
+  "dependencies": {
+    "@types/react-router-dom": "^5.3.3",
+    "react-router-dom": "^7.2.0"
+  }
+}

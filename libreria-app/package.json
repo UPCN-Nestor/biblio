@@ -1,0 +1,13 @@
+{
+  "name": "libreria",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "web": "npm run start -w @libreria/web",
+    "mobile": "npm run start -w @libreria/mobile",
+    "build:core": "npm run build -w @libreria/core",
+    "build": "npm run build:core && npm run build -w @libreria/web"
+  }
+} 

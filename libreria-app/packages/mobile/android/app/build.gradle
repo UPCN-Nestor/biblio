@@ -1,0 +1,85 @@
+apply plugin: "com.android.application"
+apply plugin: "org.jetbrains.kotlin.android"
+
+project.ext.react = [
+    enableHermes: true
+]
+
+apply from: "../../node_modules/react-native/react.gradle"
+
+android {
+    ndkVersion rootProject.ext.ndkVersion
+
+    compileSdkVersion rootProject.ext.compileSdkVersion
+
+    namespace "com.libreria"
+    defaultConfig {
+        applicationId "com.libreria"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file('debug.keystore')
+            storePassword 'android'
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+        }
+        release {
+            if (project.hasProperty('MYAPP_UPLOAD_STORE_FILE')) {
+                storeFile file(MYAPP_UPLOAD_STORE_FILE)
+                storePassword MYAPP_UPLOAD_STORE_PASSWORD
+                keyAlias MYAPP_UPLOAD_KEY_ALIAS
+                keyPassword MYAPP_UPLOAD_KEY_PASSWORD
+            }
+        }
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+        }
+        release {
+            minifyEnabled enableProguardInReleaseBuilds
+            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            signingConfig signingConfigs.release
+        }
+    }
+}
+
+dependencies {
+    implementation "com.facebook.react:react-native:+"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+
+    implementation "androidx.appcompat:appcompat:1.6.1"
+    implementation "com.google.android.material:material:1.9.0"
+
+    debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}")
+    debugImplementation("com.facebook.flipper:flipper-network-plugin:${FLIPPER_VERSION}") {
+        exclude group:'com.squareup.okhttp3', module:'okhttp'
+    }
+
+    debugImplementation("com.facebook.flipper:flipper-fresco-plugin:${FLIPPER_VERSION}")
+    if (enableHermes) {
+        implementation("com.facebook.react:hermes-engine:+") {
+            exclude group:'com.facebook.fbjni'
+        }
+    } else {
+        implementation jscFlavor
+    }
+}
+
+apply from: "../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"
+applyNativeModulesAppBuildGradle(project)
+
+def vectorIconsPath = new File(["node", "--print", "require.resolve('react-native-vector-icons/fonts.gradle')"].execute(null, rootDir).text.trim())
+
+if (vectorIconsPath.exists()) {
+    project.ext.vectoricons = [
+        iconFontNames: [ 'MaterialIcons.ttf' ]
+    ]
+    apply from: vectorIconsPath
+} 
